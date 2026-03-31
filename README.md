@@ -1,17 +1,19 @@
-# Agent Skills
+# Agent Skills 🤖
 
 > a collection of useful Agent skills and Plugins for Agentic Coding, Software Engineering, Architecture and other related areas.
 
 ## Installation
 
-### Universal Skills Installation
+### Universal Installation
 
-**Adding all skills**
+using [skills](https://github.com/vercel-labs/skills) tool from Vercel for universal agent skills installation.
+
+#### Adding all skills
 ```shell
 npx skills add https://github.com/planxnx/skills
 ```
 
-**Adding specific skills**
+#### Adding specific skill
 ```shell
 npx skills add https://github.com/planxnx/skills --skill plan-dev
 ```
