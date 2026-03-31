@@ -11,7 +11,7 @@
 	"plugins": [
 	  {
 		"name": "agentic-coding-skills",
-		"description": "Collection of agentic code development skills including software development, architecture design, and implementation planning.",
+		"description": "Collection of agentic code development skills including software engineering, development and architecture design.",
 		"source": "./",
 		"strict": false,
 		"skills": [
