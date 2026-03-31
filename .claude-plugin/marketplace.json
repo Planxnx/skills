@@ -1,0 +1,22 @@
+{
+	"name": "planxnx-agent-skills",
+	"owner": {
+	  "name": "Planxnx Thanee Charattrakool",
+	  "email": "contact@planxnx.dev"
+	},
+	"metadata": {
+	  "description": "Planxnx's personal useful Agent skills and Plugins for AI Agents.",
+	  "version": "1.0.0"
+	},
+	"plugins": [
+	  {
+		"name": "agentic-coding-skills",
+		"description": "Collection of agentic code development skills including software development, architecture design, and implementation planning.",
+		"source": "./",
+		"strict": false,
+		"skills": [
+		  "./skills/plan-dev"
+		]
+	  }
+	]
+  }
