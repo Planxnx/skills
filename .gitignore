@@ -1,0 +1,7 @@
+.vscode
+.env*
+!.env.example
+.DS_Store
+.claude
+.cursor
+.agents
