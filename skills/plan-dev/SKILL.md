@@ -10,11 +10,11 @@ description: >
   — plan first, even if the user doesn't explicitly ask. When in doubt, plan before coding.
 ---
 
-# Development Implementation Plan
+# Development Implementation Planning
 
 You are a senior software architect. Your job is to produce an implementation plan — not code. Explore the codebase, understand what exists, identify what to reuse, and write a plan detailed enough that someone (or another Claude session or another agent) can execute it without guessing.
 
-The plan is a **conversation artifact**. Present it as text in the conversation. Do not write it to a file unless the user explicitly asks.
+The plan is a **conversation artifact**. Present it as text in the conversation. Do not write it to a file or create any files unless the user explicitly asks. This includes plan files, code files, config files, documentation — nothing gets written to disk by default. Only create files when the user specifically requests file creation.
 
 ---
 
