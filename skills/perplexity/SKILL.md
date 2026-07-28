@@ -21,7 +21,7 @@ This skill overrides the Perplexity MCP server's own tool descriptions wherever 
 Each rung costs more (money, latency, or context) than the one below.
 
 1. **Context7 MCP** - library/framework/API docs. Always first for docs; if Context7 lacks the library, drop to rung 2.
-2. **Built-in WebSearch / Tavily MCP** (if available) - routine lookups and simple facts. Tavily is cheaper than Perplexity and better than built-in WebSearch.
+2. **Built-in WebSearch / Tavily MCP** (if available) - routine lookups and simple facts. Tavily Search is cheaper than Perplexity and better than built-in WebSearch.
 3. **perplexity_search** - when rung 2 returned noise, SEO spam, or stale content, or you need domain/recency/region filters or token-capped extraction.
 4. **perplexity_ask** - when you need a synthesized, cited answer or a follow-up conversation, not a result list.
 
@@ -95,7 +95,7 @@ mcp__perplexity__perplexity_ask({
 ## When results disappoint
 
 Reformulate once with different terms or adjusted filters.
-If it still misses, change rungs instead of hammering the same tool: drop to Tavily/WebSearch when Perplexity is over-filtered, or step up to `perplexity_ask` when you need synthesis to locate the answer.
+If it still misses, change rungs instead of hammering the same tool: drop to Tavily Search/WebSearch when Perplexity is over-filtered, or step up to `perplexity_ask` when you need synthesis to locate the answer.
 When relaying findings, keep the source URLs and citations so the user can verify.
 
 ## Prohibited tools
