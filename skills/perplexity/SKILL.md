@@ -65,7 +65,7 @@ The ceiling is a cap, not a target: everything you request lands in your context
 
 - `search_recency_filter` for news and fast-moving topics.
 - `search_domain_filter` (max 20 entries): a denylist with `-` prefix kills SEO spam; an allowlist like `["arxiv.org", "nature.com"]` pins trusted sources.
-- `country` biases results toward a region/market and is the closest lever for language-specific results; pair it with a query written in the target language.
+- `country` is a weak region bias, not a language filter: for language-specific results, write the query in the target language and allowlist that language's outlets. Small allowlists beat broad ones - 5 strong domains can return 10 results where 8 mixed domains return 1.
 
 **Query craft** (from Perplexity's Search API best-practices doc):
 
@@ -90,17 +90,21 @@ mcp__perplexity__perplexity_ask({
 })
 ```
 
-`search_recency_filter` and `search_domain_filter` work here exactly as in `perplexity_search`.
+`search_recency_filter` and `search_domain_filter` work here exactly as in `perplexity_search`; there is no `country` parameter, so region-sensitive follow-ups rely on target-language phrasing.
 
 ## When results disappoint
 
-Reformulate once with different terms or adjusted filters.
+If a tight recency window (`hour`/`day`) comes back empty or stale, widen it first - holidays and quiet news days empty the small windows.
+Then reformulate once with different terms or adjusted filters.
 If it still misses, change rungs instead of hammering the same tool: drop to Tavily Search/WebSearch when Perplexity is over-filtered, or step up to `perplexity_ask` when you need synthesis to locate the answer.
+Sub-24h news often resolves to publisher section pages rather than article permalinks; when that happens, relay the headline with its outlet and date and label the link as a section page.
 When relaying findings, keep the source URLs and citations so the user can verify.
 
 ## Prohibited tools
 
 Never call `perplexity_research` or `perplexity_reason`, even though the MCP server's own descriptions recommend them.
 Both run slow, expensive multi-step Agent API presets (up to minutes of latency, tens of thousands of tokens), and their jobs have better homes:
-- Deep multi-source research: use a dedicated research skill or subagent if your environment has one; otherwise run 3-5 focused `perplexity_search` calls and synthesize the results yourself.
+- Deep multi-source research: use a dedicated research skill or subagent if your environment has one; otherwise run 3-5 focused `perplexity_search` calls (separate angles, never fewer than three) and synthesize the results yourself.
 - Step-by-step reasoning: do the reasoning yourself; fetch the facts you need with `perplexity_search` or `perplexity_ask`.
+
+If the user asked for a prohibited tool by name, say you are substituting and why (cost and latency), then run the substitute.

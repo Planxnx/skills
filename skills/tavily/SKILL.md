@@ -42,7 +42,7 @@ All numbers come from Tavily's API-credits doc; billing blocks round up (12 extr
 | `tavily_map` | 1 per 10 pages (with `instructions`: 2 per 10) |
 | `tavily_crawl` | map cost + extract cost, about 3 per 10 pages at basic depth |
 
-Search bills per request, so its parameters only change your context spend.
+Search bills per request: `search_depth: "advanced"` doubles that request's price, and every other search parameter only changes your context spend.
 Extract, map, and crawl bill by volume: URL count, `limit`, `max_depth`, and `max_breadth` are the real cost levers, multiplied by depth upgrades and `instructions`.
 Failed extractions and failed maps are not billed.
 
@@ -63,8 +63,10 @@ Escalate only when the basic pass came back thin, noisy, or stale: `search_depth
 
 **Parameter notes:**
 
-- `search_depth`: `"basic"` for everyday lookups; `"advanced"` for discovery, comparisons, and high-confidence answers; `"fast"`/`"ultra-fast"` only when latency beats relevance.
+- `search_depth`: `"basic"` first in almost every case; jump straight to `"advanced"` only for a deliberate multi-search sweep like the research substitute below; `"fast"`/`"ultra-fast"` only when latency beats relevance.
 - `include_domains` pins trusted sources; `exclude_domains` (e.g. `["pinterest.com", "quora.com"]`) kills SEO spam; `start_date`/`end_date` (YYYY-MM-DD) for precise windows; `exact_match` to require quoted phrases.
+- News queries drown in social-media reposts even with `time_range: "day"`: pin `include_domains` to real outlets, or exclude the social platforms (`instagram.com`, `tiktok.com`, `facebook.com`). For sources in a specific language, pin that language's outlets and write the query in it - `country` is only a bias and no language parameter exists.
+- `time_range` is approximate: before presenting anything as within 24 hours, verify freshness from the results' own dates (URL paths, published dates).
 - `topic` is locked to `"general"` on this server; use `time_range` or dates for news recency.
 - `include_raw_content` is free but dumps full page text for every result into your context; extracting the few URLs you actually chose costs one credit and loads far less.
 
@@ -114,7 +116,8 @@ mcp__tavily-remote-mcp__tavily_crawl({
 
 ## When results disappoint
 
-Escalate depth or reformulate once (each tool's notes above); if Tavily is unavailable or still misses, fall back to built-in WebSearch - free and always present - rather than hammering the same call.
+An empty results array is a silent miss, not an error: reformulate with different terms or widen `time_range` first (holidays and quiet days empty the `"day"` window).
+Otherwise escalate depth or reformulate once (each tool's notes above); if Tavily is unavailable or still misses, fall back to built-in WebSearch - free and always present - rather than hammering the same call.
 When relaying findings, keep the source URLs so the user can verify.
 
 ## Prohibited tool
